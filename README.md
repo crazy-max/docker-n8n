@@ -61,7 +61,10 @@ Image: crazymax/n8n:latest
 
 ## Environment variables
 
-_TODO_
+* `TZ`: The timezone assigned to the container (default `UTC`)
+
+To configure the application, just add the environment variables as shown in the official
+[Configuration page](https://docs.n8n.io/reference/configuration.html) of n8n.
 
 ## Ports
 
@@ -69,7 +72,27 @@ _TODO_
 
 ## Usage
 
-_TODO_
+### Docker Compose
+
+Docker compose is the recommended way to run this image. You can use the following
+[docker compose template](examples/compose/docker-compose.yml), then run the container:
+
+```bash
+docker-compose up -d
+docker-compose logs -f
+```
+
+### Command line
+
+You can also use the following minimal command:
+
+```shell
+docker run -d -p 5678:5678 --name n8n \
+  -e "TZ=Europe/Paris" \
+  -e "GENERIC_TIMEZONE=Europe/Paris" \
+  -v $(pwd)/data:/data \
+  crazymax/n8n:latest
+```
 
 ## Upgrade
 

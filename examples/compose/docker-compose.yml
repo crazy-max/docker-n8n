@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  n8n:
+    image: crazymax/n8n:latest
+    container_name: n8n
+    ports:
+      - target: 5678
+        published: 5678
+        protocol: tcp
+    volumes:
+      - "n8n:/data"
+    environment:
+      - "TZ"
+      - "GENERIC_TIMEZONE=${TZ}"
+    restart: always
+
+volumes:
+  n8n:

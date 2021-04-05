@@ -1,0 +1,66 @@
+version: "3.7"
+
+services:
+  traefik:
+    image: traefik:2.4
+    container_name: traefik
+    command:
+      - "--global.checknewversion=false"
+      - "--global.sendanonymoususage=false"
+      - "--log=true"
+      - "--log.level=INFO"
+      - "--entrypoints.http=true"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.http.http.redirections.entrypoint.to=https"
+      - "--entrypoints.http.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.https=true"
+      - "--entrypoints.https.address=:443"
+      - "--certificatesresolvers.letsencrypt"
+      - "--certificatesresolvers.letsencrypt.acme.storage=acme.json"
+      - "--certificatesresolvers.letsencrypt.acme.email=webmaster@example.com"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge"
+      - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=http"
+      - "--providers.docker"
+      - "--providers.docker.watch=true"
+      - "--providers.docker.exposedbydefault=false"
+    ports:
+      - target: 80
+        published: 80
+        protocol: tcp
+      - target: 443
+        published: 443
+        protocol: tcp
+    volumes:
+      - "./acme.json:/acme.json"
+      - "/var/run/docker.sock:/var/run/docker.sock"
+    environment:
+      - "TZ"
+    restart: always
+
+  n8n:
+    image: crazymax/n8n:latest
+    container_name: n8n
+    volumes:
+      - "n8n:/data"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.healthchecks.entrypoints=https"
+      - "traefik.http.routers.healthchecks.rule=Host(`n8n.example.com`)"
+      - "traefik.http.routers.healthchecks.tls=true"
+      - "traefik.http.routers.healthchecks.tls.certresolver=letsencrypt"
+      - "traefik.http.routers.healthchecks.tls.domains[0].main=n8n.example.com"
+      - "traefik.http.services.healthchecks.loadbalancer.server.port=5678"
+    environment:
+      - "TZ"
+      - "GENERIC_TIMEZONE=${TZ}"
+      - "N8N_BASIC_AUTH_ACTIVE=true"
+      - "N8N_BASIC_AUTH_USER"
+      - "N8N_BASIC_AUTH_PASSWORD"
+      - "N8N_HOST=n8n.example.com"
+      - "N8N_PROTOCOL=https"
+      - "NODE_ENV=production"
+      - "WEBHOOK_TUNNEL_URL=https://n8n.example.com/"
+    restart: always
+
+volumes:
+  n8n:
