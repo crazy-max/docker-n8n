@@ -1,4 +1,4 @@
-ARG N8N_VERSION=0.118.1
+ARG N8N_VERSION=0.119.0
 
 FROM node:14-alpine
 LABEL maintainer="CrazyMax"
