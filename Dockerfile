@@ -1,7 +1,6 @@
-ARG N8N_VERSION=0.124.1
+ARG N8N_VERSION=0.129.0
 
 FROM node:14-alpine
-LABEL maintainer="CrazyMax"
 
 RUN apk --update --no-cache add \
     ca-certificates \
