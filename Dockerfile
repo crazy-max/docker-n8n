@@ -17,7 +17,7 @@ RUN apk --update --no-cache add \
   && adduser -u 1500 -G n8n -h /data -s /bin/sh -D n8n \
   && npm_config_user=n8n npm install -g full-icu \
   && apk del fonts \
-  && rm -rf /tmp/* /var/cache/apk/*
+  && rm -rf /tmp/*
 
 WORKDIR /app
 ARG N8N_VERSION
@@ -29,7 +29,7 @@ RUN apk --update --no-cache add --virtual .build \
   && npm_config_user=n8n npm install n8n@${N8N_VERSION} \
   && chown -R n8n. /app \
   && apk del .build \
-  && rm -rf /root /tmp/* /var/cache/apk/* \
+  && rm -rf /root /tmp/* \
   && mkdir /root
 
 USER n8n
