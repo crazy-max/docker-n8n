@@ -24,7 +24,7 @@ ARG N8N_VERSION
 RUN apk --update --no-cache add --virtual .build \
     build-base \
     git \
-    python \
+    python3 \
   && npm config set unsafe-perm true \
   && npm_config_user=n8n npm install n8n@${N8N_VERSION} \
   && chown -R n8n. /app \
