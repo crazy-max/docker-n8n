@@ -5,7 +5,7 @@ FROM node:14-alpine
 RUN apk --update --no-cache add \
     ca-certificates \
     graphicsmagick \
-    libressl \
+    openssl \
     shadow \
     tzdata \
   && apk --no-cache add --virtual fonts \
