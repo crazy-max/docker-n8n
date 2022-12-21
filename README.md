@@ -11,10 +11,13 @@
 
 ## About
 
-[n8n](https://github.com/n8n-io/n8n) Docker image based on Alpine Linux.<br />
-If you are interested, [check out](https://hub.docker.com/r/crazymax/) my other Docker images!
+Docker image for [n8n](https://github.com/n8n-io/n8n), a workflow automation
+tool. Easily automate tasks across different services.
 
-💡 Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun) project!
+> **Note**
+> 
+> Want to be notified of new releases? Check out 🔔 [Diun (Docker Image Update Notifier)](https://github.com/crazy-max/diun)
+> project!
 
 ___
 
