@@ -1,14 +1,19 @@
-ARG N8N_VERSION=0.133.0
+# syntax=docker/dockerfile:1
 
-FROM node:14-alpine
+ARG N8N_VERSION=0.236.1
+ARG NODE_VERSION=18
 
+FROM node:${NODE_VERSION}-alpine
 RUN apk --update --no-cache add \
     ca-certificates \
     graphicsmagick \
+    libc6-compat \
     libressl \
+    openssh \
     shadow \
     tzdata \
   && apk --no-cache add --virtual fonts \
+    fonts \
     fontconfig \
     msttcorefonts-installer \
   && update-ms-fonts \
@@ -25,8 +30,7 @@ RUN apk --update --no-cache add --virtual .build \
     build-base \
     git \
     python3 \
-  && npm config set unsafe-perm true \
-  && npm_config_user=n8n npm install n8n@${N8N_VERSION} \
+  && npm_config_user=n8n npm install --omit=dev n8n@${N8N_VERSION} \
   && chown -R n8n. /app \
   && apk del .build \
   && rm -rf /root /tmp/* \
