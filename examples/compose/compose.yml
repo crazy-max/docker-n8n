@@ -1,5 +1,3 @@
-version: "3.7"
-
 services:
   n8n:
     image: crazymax/n8n:latest

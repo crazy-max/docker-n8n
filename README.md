@@ -78,11 +78,11 @@ To configure the application, just add the environment variables as shown in the
 ### Docker Compose
 
 Docker compose is the recommended way to run this image. You can use the following
-[docker compose template](examples/compose/docker-compose.yml), then run the container:
+[docker compose template](examples/compose/compose.yml), then run the container:
 
 ```bash
-docker-compose up -d
-docker-compose logs -f
+docker compose up -d
+docker compose logs -f
 ```
 
 ### Command line
@@ -102,8 +102,8 @@ docker run -d -p 5678:5678 --name n8n \
 To upgrade, pull the newer image and launch the container :
 
 ```bash
-docker-compose pull
-docker-compose up -d
+docker compose pull
+docker compose up -d
 ```
 
 ## Contributing

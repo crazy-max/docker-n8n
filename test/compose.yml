@@ -1,0 +1,23 @@
+services:
+  n8n:
+    image: ${N8N_IMAGE:-crazymax/n8n}
+    container_name: ${N8N_CONTAINER:-n8n}
+    networks:
+      - n8n
+    ports:
+      - target: 5678
+        published: 5678
+        protocol: tcp
+    volumes:
+      - "n8n:/data"
+    environment:
+      - "TZ"
+      - "GENERIC_TIMEZONE=${TZ}"
+    restart: always
+
+volumes:
+  n8n:
+
+networks:
+  n8n:
+    name: n8n
